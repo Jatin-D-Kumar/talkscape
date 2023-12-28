@@ -3,10 +3,11 @@ import { currentUser } from "@clerk/nextjs";
 import UserCard from "../cards/UserCard";
 
 import { fetchUsers } from "@/lib/actions/user.actions";
+import { redirect } from "next/navigation";
 
 async function RightSidebar() {
   const user = await currentUser();
-  if (!user) return null;
+  if (!user) redirect("/sign-in");
 
   const similarMinds = await fetchUsers({
     userId: user.id,
